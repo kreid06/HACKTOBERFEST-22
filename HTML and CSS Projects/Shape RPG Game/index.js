@@ -18,6 +18,14 @@ function Game(){
         `
         
     }
+    this.loseGame = ()=>{
+        this.menu.menuType = "loseMenu"
+        this.levelPlaying = false;
+        this.noMenu =  false;
+        this.menu.isOpen = true;
+        this.gamePlaying = false
+    }
+
 
     this.newGame = ()=>{
         let newThis = Object.assign(this, new Game());
@@ -65,6 +73,22 @@ function Game(){
             while(enemiesTempArray.length>1){
                 let firstEnemy =  enemiesTempArray.shift();
                 let secondEnemy;
+
+                let distancePlayerX = Math.pow(this.player.x
+                    -firstEnemy.x,2)
+                let distancePlayerY = Math.pow(this.player.y
+                    -firstEnemy.y,2)
+                let playerDistance = Math.sqrt(distancePlayerX+distancePlayerY)
+                
+                let bigPlayerSize = this.player.size > firstEnemy.size? this.player.size : firstEnemy.size
+                    if(playerDistance<bigPlayerSize){
+                        // need to work on collision physics.
+                        console.log('we collided')
+                        this.loseGame()
+                        // this.enemies.splice(currentIndex,1)
+                        // this.enemies.splice(currentIndex+i,1)
+                    };
+
                 for(let i = 0; i < enemiesTempArray.length; i++){
                     secondEnemy = enemiesTempArray[i]
                     let distanceX = Math.pow(secondEnemy.x

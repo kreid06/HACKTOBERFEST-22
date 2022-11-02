@@ -20,6 +20,9 @@ function Menu(game){
     this.loadGameButtons =  {
                                 backBtn:   {x: 160, y:150, w:30,  h:30, color: "#55ff55", textArr:[{font: "25px Arial", x:167, y:175, color:"#000000", msg:"<"}], name: "backBtn"}
                             };
+    this.loseButtons =      {
+                                newGameBtn: {x: 200, y:235, w:350, h:50, color: "#aaaaaa", textArr:[{font: "20px Arial", x:325, y:265, color:"#000000", msg:"New Game"}], name: "newGameBtn"},
+                            }                        
 
     this.getLoadGameBtns = ()=>{
         let loadString = window.localStorage.getItem('shapeTasticLoad') || "empty";
@@ -54,12 +57,14 @@ function Menu(game){
         ctx.restore()
     }
 
-    this.controlInfo = ()=>{
+    this.controlMenu = ()=>{
         ctx.save();
 
     }
 
     this.loseMenu = ()=>{
+        ctx.fillText("You Lose", 285, 190)
+        this.createBtns(Object.values(this.loseButtons));
 
     }
 
@@ -96,6 +101,12 @@ function Menu(game){
             }else 
             if(this.menuType === "loadMenu"){
                 this.loadMenu()
+            }else
+            if(this.menuType === "loseMenu"){
+                this.loseMenu()
+            }else
+            if(this.menuType === "controlMenu"){
+                this.controlMenu()
             }
         }
     }

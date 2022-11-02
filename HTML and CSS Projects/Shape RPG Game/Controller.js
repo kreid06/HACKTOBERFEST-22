@@ -107,6 +107,16 @@ function Controller(player, menu, game){
                         this.menu.menuType = this.previousMenu
                         console.log("load menu")
                     }
+                }else
+                if(this.menu.menuType === "loseMenu"){
+                    if(this.boundaryTest({offsetX,offsetY}, this.menu.loseButtons.newGameBtn)){
+                        console.log("You Lose")
+                        this.game.noMenu = false;
+                        this.menu.isOpen = false;
+                        this.game.gamePlaying = false;
+                        this.previousMenu = "startMenu"
+                        this.game.newGame()
+                    }
                 }
             }
         })
