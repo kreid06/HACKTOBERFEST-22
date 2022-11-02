@@ -7,8 +7,9 @@ function Game(){
     this.bullets = [];
     this.enemies = [];
     this.levelPlaying = false;
+    this.gamePlaying = false
     this.currentLevel = 0;
-    this.notPaused =  true;
+    this.noMenu =  false;
     this.controller;
     this.menu;
     this.newContainer = ()=>{
@@ -101,6 +102,7 @@ function Game(){
         this.player =  new Player(ctx, canvas, this.mouse,"orange");
         this.player.create(375, 375, 10)
         this.menu = new Menu(this)
+        this.menu.menuType = "startMenu"
         this.controller =  new Controller(this.player, this.menu, this)
         this.controller.start()
         this.draw()
@@ -124,7 +126,7 @@ function Game(){
       
         ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-        if(this.notPaused){
+        if(this.noMenu){
             this.enemies.forEach(enemy => {
                 enemy.render()
                 enemy.move()
