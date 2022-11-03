@@ -67,10 +67,10 @@ function Game(){
         }
     }
     this.checkEnemyAndPlayerColision = ()=>{
-        if(this.enemies.length > 1){
+        if(this.enemies.length > 0){
             const enemiesTempArray = Array.from(this.enemies)
             let currentIndex = 0;
-            while(enemiesTempArray.length>1){
+            while(enemiesTempArray.length>0){
                 let firstEnemy =  enemiesTempArray.shift();
                 let secondEnemy;
 
@@ -80,7 +80,7 @@ function Game(){
                     -firstEnemy.y,2)
                 let playerDistance = Math.sqrt(distancePlayerX+distancePlayerY)
                 
-                let bigPlayerSize = this.player.size > firstEnemy.size? this.player.size : firstEnemy.size
+                let bigPlayerSize = this.player.size/2 > firstEnemy.size? this.player.size/2 : firstEnemy.size
                     if(playerDistance<bigPlayerSize){
                         // need to work on collision physics.
                         console.log('we collided')
@@ -88,25 +88,26 @@ function Game(){
                         // this.enemies.splice(currentIndex,1)
                         // this.enemies.splice(currentIndex+i,1)
                     };
-
-                for(let i = 0; i < enemiesTempArray.length; i++){
-                    secondEnemy = enemiesTempArray[i]
-                    let distanceX = Math.pow(secondEnemy.x
-                        -firstEnemy.x,2)
-                    let distanceY = Math.pow(secondEnemy.y
-                        -firstEnemy.y,2)
-                    let distance = Math.sqrt(distanceX+distanceY)
-                    let bigSize = secondEnemy.size > firstEnemy.size? secondEnemy.size : firstEnemy.size
-                    if(distance<bigSize){
-                        // need to work on collision physics.
-                        console.log('we collided')
-                        let angleOfCollision = Math.acos(Math.atan(secondEnemy.angle)/(2*Math.atan(firstEnemy.angle)))
-                        // console.log(angleOfCollision, console.log(this.enemies))
-                        this.enemies[currentIndex].angle += Math.PI/2
-                        this.enemies[currentIndex+i].angle -= Math.PI/2
-                        // this.enemies.splice(currentIndex,1)
-                        // this.enemies.splice(currentIndex+i,1)
-                    };
+                if(enemiesTempArray.length>1){
+                    for(let i = 0; i < enemiesTempArray.length; i++){
+                        secondEnemy = enemiesTempArray[i]
+                        let distanceX = Math.pow(secondEnemy.x
+                            -firstEnemy.x,2)
+                        let distanceY = Math.pow(secondEnemy.y
+                            -firstEnemy.y,2)
+                        let distance = Math.sqrt(distanceX+distanceY)
+                        let bigSize = secondEnemy.size > firstEnemy.size? secondEnemy.size : firstEnemy.size
+                        if(distance<bigSize){
+                            // need to work on collision physics.
+                            console.log('we collided')
+                            let angleOfCollision = Math.acos(Math.atan(secondEnemy.angle)/(2*Math.atan(firstEnemy.angle)))
+                            // console.log(angleOfCollision, console.log(this.enemies))
+                            this.enemies[currentIndex].angle += Math.PI/2
+                            this.enemies[currentIndex+i].angle -= Math.PI/2
+                            // this.enemies.splice(currentIndex,1)
+                            // this.enemies.splice(currentIndex+i,1)
+                        };
+                    }
                 }
                 currentIndex++
             }
